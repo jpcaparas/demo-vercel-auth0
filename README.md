@@ -88,10 +88,3 @@ To learn more about the technologies used in this project:
 - [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API
 - [Auth0 Documentation](https://auth0.com/docs) - Explore Auth0's authentication features
 
-## Deployment
-
-This project is optimized for deployment on Vercel. Simply connect your repository to Vercel and deploy with a click.
-
-Make sure to configure your environment variables in your Vercel project settings.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fnext.js%2Ftree%2Fcanary%2Fexamples%2Fhello-world)
