@@ -11,6 +11,8 @@ This project demonstrates how to integrate Auth0 authentication with a Next.js a
 
 ## Prerequisites
 
+_(This assumes that port 3000 is the one serving the application)_
+
 1. Create a free [Auth0 account](https://auth0.com/signup)
 2. Set up a new Auth0 application:
    - Go to the Auth0 Dashboard

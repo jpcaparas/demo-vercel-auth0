@@ -3,6 +3,7 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function ProtectedPage() {
   const { user, error, isLoading } = useUser();
@@ -36,12 +37,12 @@ export default function ProtectedPage() {
           <p className="text-gray-700 dark:text-gray-200">
             This is a protected page. You can only see this content because you&apos;re authenticated!
           </p>
-          <a
+          <Link
             href="/api/auth/logout"
             className="block w-full text-center bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
           >
             Logout
-          </a>
+          </Link>
         </div>
       </div>
     </div>
