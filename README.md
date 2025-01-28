@@ -2,6 +2,8 @@
 
 This project demonstrates how to integrate Auth0 authentication with a Next.js application deployed on Vercel. It showcases secure user authentication and authorization features while maintaining the modern development experience that Next.js provides.
 
+https://github.com/user-attachments/assets/b90e06fb-b272-46e5-98b4-97b0a2c577fc
+
 ## Features
 
 - 🔐 Secure authentication with Auth0
