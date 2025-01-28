@@ -42,10 +42,16 @@ AUTH0_CLIENT_SECRET='YOUR_AUTH0_CLIENT_SECRET'
 ```
 
 Replace the placeholder values with your Auth0 application credentials:
+- `AUTH0_SECRET`: A long, random string used to encrypt the session cookie. This ensures your user's session is secure and can't be tampered with. Generate it using: `openssl rand -hex 32`
 - `YOUR_AUTH0_DOMAIN`: Your Auth0 domain (e.g., `dev-xyz123.us.auth0.com`)
 - `YOUR_AUTH0_CLIENT_ID`: Your Auth0 application's Client ID
 - `YOUR_AUTH0_CLIENT_SECRET`: Your Auth0 application's Client Secret
-- Generate a random secret using: `openssl rand -hex 32`
+
+> **Note about AUTH0_SECRET**: This secret is crucial for security as it's used to:
+> - Sign and encrypt the session cookies
+> - Prevent unauthorized access to user sessions
+> - Protect against cookie tampering and session hijacking
+> Never share or commit this secret to version control.
 
 ## Getting Started
 
