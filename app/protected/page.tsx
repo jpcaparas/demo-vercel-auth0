@@ -34,7 +34,7 @@ export default function ProtectedPage() {
         </div>
         <div className="space-y-4">
           <p className="text-gray-700 dark:text-gray-200">
-            This is a protected page. You can only see this content because you're authenticated!
+            This is a protected page. You can only see this content because you&apos;re authenticated!
           </p>
           <a
             href="/api/auth/logout"
