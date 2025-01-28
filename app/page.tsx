@@ -32,14 +32,14 @@ export default function Home() {
             user ? (
               <a
                 href="/protected"
-                className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-8 sm:px-10"
+                className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#383838] text-sm sm:text-base h-10 sm:h-12 px-8 sm:px-10"
               >
                 View Protected Page →
               </a>
             ) : (
               <a
                 href="/api/auth/login"
-                className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-8 sm:px-10"
+                className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#383838] text-sm sm:text-base h-10 sm:h-12 px-8 sm:px-10"
               >
                 Login to Access Protected Content →
               </a>
