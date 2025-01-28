@@ -30,7 +30,7 @@ export default function ProtectedPage() {
           )}
           <div>
             <h1 className="text-2xl font-bold">{user.name}</h1>
-            <p className="text-gray-600 dark:text-gray-300">{user.email}</p>
+            <p className="text-gray-600 dark:text-gray-300">{user.email?.replace(/(.{2})(.*)(?=@)/, (_, start, rest) => start + '*'.repeat(rest.length))}</p>
           </div>
         </div>
         <div className="space-y-4">
