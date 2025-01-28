@@ -9,23 +9,25 @@ This project demonstrates how to integrate Auth0 authentication with a Next.js a
 - 🚀 Deploy-ready for Vercel
 - 🎨 Modern UI with [Geist](https://vercel.com/font) font optimization
 
-## Getting Started
+## Prerequisites
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Create a free [Auth0 account](https://auth0.com/signup)
+2. Set up a new Auth0 application:
+   - Go to the Auth0 Dashboard
+   - Create a new Application
+   - Choose "Regular Web Application"
+   - In Settings, add the following URLs to "Allowed Callback URLs":
+     ```
+     http://localhost:3000/api/auth/callback
+     ```
+   - Add to "Allowed Logout URLs":
+     ```
+     http://localhost:3000
+     ```
+   - Add to "Allowed Web Origins":
+     ```
+     http://localhost:3000
+     ```
 
 ## Environment Setup
 
@@ -38,6 +40,37 @@ AUTH0_ISSUER_BASE_URL='https://YOUR_AUTH0_DOMAIN'
 AUTH0_CLIENT_ID='YOUR_AUTH0_CLIENT_ID'
 AUTH0_CLIENT_SECRET='YOUR_AUTH0_CLIENT_SECRET'
 ```
+
+Replace the placeholder values with your Auth0 application credentials:
+- `YOUR_AUTH0_DOMAIN`: Your Auth0 domain (e.g., `dev-xyz123.us.auth0.com`)
+- `YOUR_AUTH0_CLIENT_ID`: Your Auth0 application's Client ID
+- `YOUR_AUTH0_CLIENT_SECRET`: Your Auth0 application's Client Secret
+- Generate a random secret using: `openssl rand -hex 32`
+
+## Getting Started
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+4. Click the "Login" button to test the Auth0 integration.
+
+## Testing the Authentication Flow
+
+1. Visit the homepage at `http://localhost:3000`
+2. Click the "Login" button
+3. You'll be redirected to Auth0's login page
+4. After successful authentication, you'll be redirected back to the application
+5. You can now access the protected page
+6. Try the logout button to end your session
 
 ## Learn More
 
