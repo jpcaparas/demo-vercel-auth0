@@ -29,8 +29,13 @@ export default function ProtectedPage() {
             />
           )}
           <div>
-            <h1 className="text-2xl font-bold">{user.name}</h1>
-            <p className="text-gray-600 dark:text-gray-300">{user.email?.replace(/(.{2})(.*)(?=@)/, (_, start, rest) => start + '*'.repeat(rest.length))}</p>
+            <h1 className="text-2xl font-bold text-white">{user.name}</h1>
+            <p className="text-gray-600 dark:text-gray-300">{user.email?.replace(/./g, (char, index) => {
+              // Generate a pseudo-random number based on the index
+              const rand = Math.sin(index * 12345) * 10000;
+              // Use the random number to determine if we should mask
+              return (index % 3 === 0 || rand > 5000) ? char : '*';
+            })}</p>
           </div>
         </div>
         <div className="space-y-4">
