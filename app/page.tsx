@@ -2,9 +2,20 @@
 
 import Image from "next/image";
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Home() {
   const { user, isLoading } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      redirect('/profile');
+    }
+  }, [user]);
+
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -24,27 +35,16 @@ export default function Home() {
         
         <p className="text-xl mb-8 max-w-2xl">
           This demo shows how to integrate Auth0 authentication with Next.js.
-          {user && " You're currently logged in!"}
+          Log in to manage your profile and settings.
         </p>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
-          {!isLoading && (
-            user ? (
-              <a
-                href="/protected"
-                className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#383838] text-sm sm:text-base h-10 sm:h-12 px-8 sm:px-10"
-              >
-                View Protected Page →
-              </a>
-            ) : (
-              <a
-                href="/api/auth/login"
-                className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#383838] text-sm sm:text-base h-10 sm:h-12 px-8 sm:px-10"
-              >
-                Login to Access Protected Content →
-              </a>
-            )
-          )}
+          <Link
+            href="/api/auth/login"
+            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#383838] text-sm sm:text-base h-10 sm:h-12 px-8 sm:px-10"
+          >
+            Login to Access Your Profile →
+          </Link>
         </div>
       </main>
 
