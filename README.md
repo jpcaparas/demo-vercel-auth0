@@ -7,9 +7,32 @@ https://github.com/user-attachments/assets/b90e06fb-b272-46e5-98b4-97b0a2c577fc
 ## Features
 
 - 🔐 Secure authentication with Auth0
+- 👤 Comprehensive user profile management
+- 🔑 Role-based access control using Auth0 metadata
 - ⚡ Built with Next.js
 - 🚀 Deploy-ready for Vercel
 - 🎨 Modern UI with [Geist](https://vercel.com/font) font optimization
+- 🎯 TypeScript for type safety
+- 💅 Tailwind CSS for styling
+
+## User Profile & Metadata Features
+
+This demo showcases how to work with Auth0's metadata features:
+
+### User Metadata (`user_metadata`)
+- Editable user profile information including:
+  - Personal details (name, phone, date of birth)
+  - Address information
+  - Bio
+  - User preferences (newsletter, notifications)
+- Persisted securely in Auth0
+- User-editable through the profile interface
+
+### App Metadata (`app_metadata`)
+- Role-based access control (regular/admin roles)
+- Managed by administrators only
+- Not editable through the user interface
+- Controls access to admin-only features
 
 ## Prerequisites
 
@@ -32,6 +55,26 @@ _(This assumes that port 3000 is the one serving the application)_
      ```
      http://localhost:3000
      ```
+3. Set up Management API permissions:
+   - In your Auth0 Dashboard, go to "Applications" > "APIs"
+   - Find and click on "Auth0 Management API"
+   - Go to the "Machine to Machine Applications" tab
+   - Find your application in the list and authorize it
+   - When authorizing, grant these specific permissions:
+     - `read:users`
+     - `update:users`
+     - `update:users_app_metadata`
+   - These permissions are required for the profile management features to work
+
+   > **Why Machine to Machine Permissions?**  
+   > While Auth0's regular authentication flow handles user login/logout, it doesn't grant access to modify user data.
+   > The Management API is a separate service that requires explicit M2M (Machine to Machine) permissions to:
+   > - Read user metadata (profile data stored in Auth0)
+   > - Update user metadata (saving profile changes)
+   > - Manage user roles and permissions
+   > 
+   > This separation of concerns is a security feature - it ensures that applications can only perform the specific
+   > user management actions they've been explicitly granted permission to do.
 
 ## Environment Setup
 
@@ -78,9 +121,26 @@ Replace the placeholder values with your Auth0 application credentials:
 1. Visit the homepage at `http://localhost:3000`
 2. Click the "Login" button
 3. You'll be redirected to Auth0's login page
-4. After successful authentication, you'll be redirected back to the application
-5. You can now access the protected page
+4. After successful authentication, you'll be redirected to your profile page
+5. Edit your profile information and save changes
 6. Try the logout button to end your session
+
+## Setting Up Admin Access
+
+To grant admin access to a user:
+
+1. Log into your Auth0 Dashboard
+2. Go to User Management > Users
+3. Select the user you want to make an admin
+4. Go to the "Metadata" tab
+5. Add the following to their `app_metadata`:
+   ```json
+   {
+     "role": "admin"
+   }
+   ```
+6. Save the changes
+7. The user will now see admin-specific messages in their profile
 
 ## Learn More
 
@@ -89,4 +149,5 @@ To learn more about the technologies used in this project:
 - [Auth0 Next.js SDK](https://auth0.com/docs/quickstart/webapp/nextjs) - Learn about Auth0 integration with Next.js
 - [Next.js Documentation](https://nextjs.org/docs) - Learn about Next.js features and API
 - [Auth0 Documentation](https://auth0.com/docs) - Explore Auth0's authentication features
+- [Auth0 User Metadata](https://auth0.com/docs/users/metadata) - Learn about user and app metadata
 

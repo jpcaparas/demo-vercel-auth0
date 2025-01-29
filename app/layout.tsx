@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import Providers from "./providers";
+import Navigation from "./components/Navigation";
 
 const checkEnvironmentVariables = () => {
   const requiredEnvVars = [
@@ -35,7 +36,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Navigation />
+          <main className="min-h-screen">
+            {children}
+          </main>
+        </Providers>
       </body>
     </html>
   );
