@@ -63,8 +63,7 @@ export default function ProfilePage() {
     }
   }, [user]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const saveProfile = async (profileData: UserProfile) => {
     setIsSaving(true);
     setSaveError('');
 
@@ -74,7 +73,7 @@ export default function ProfilePage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(profile),
+        body: JSON.stringify(profileData),
       });
 
       if (!response.ok) {
@@ -82,8 +81,27 @@ export default function ProfilePage() {
       }
     } catch (error) {
       setSaveError(error instanceof Error ? error.message : 'Failed to save profile');
+      throw error;
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      await saveProfile(profile);
+    } catch {
+      // Error is handled in saveProfile
+    }
+  };
+
+  const handleClear = async () => {
+    try {
+      await saveProfile(defaultProfile);
+      setProfile(defaultProfile);
+    } catch {
+      // Error is handled in saveProfile
     }
   };
 
@@ -120,7 +138,8 @@ export default function ProfilePage() {
                     id="firstName"
                     value={profile.firstName}
                     onChange={(e) => setProfile({ ...profile, firstName: e.target.value })}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    disabled={isSaving}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   />
                 </div>
 
@@ -133,7 +152,8 @@ export default function ProfilePage() {
                     id="lastName"
                     value={profile.lastName}
                     onChange={(e) => setProfile({ ...profile, lastName: e.target.value })}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    disabled={isSaving}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   />
                 </div>
 
@@ -146,7 +166,8 @@ export default function ProfilePage() {
                     id="phoneNumber"
                     value={profile.phoneNumber}
                     onChange={(e) => setProfile({ ...profile, phoneNumber: e.target.value })}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    disabled={isSaving}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   />
                 </div>
 
@@ -159,7 +180,8 @@ export default function ProfilePage() {
                     id="dateOfBirth"
                     value={profile.dateOfBirth}
                     onChange={(e) => setProfile({ ...profile, dateOfBirth: e.target.value })}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    disabled={isSaving}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                   />
                 </div>
               </div>
@@ -179,7 +201,8 @@ export default function ProfilePage() {
                         ...profile,
                         address: { ...profile.address, street: e.target.value }
                       })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      disabled={isSaving}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     />
                   </div>
 
@@ -195,7 +218,8 @@ export default function ProfilePage() {
                         ...profile,
                         address: { ...profile.address, city: e.target.value }
                       })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      disabled={isSaving}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     />
                   </div>
 
@@ -211,7 +235,8 @@ export default function ProfilePage() {
                         ...profile,
                         address: { ...profile.address, state: e.target.value }
                       })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      disabled={isSaving}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     />
                   </div>
 
@@ -227,7 +252,8 @@ export default function ProfilePage() {
                         ...profile,
                         address: { ...profile.address, zipCode: e.target.value }
                       })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      disabled={isSaving}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     />
                   </div>
 
@@ -243,7 +269,8 @@ export default function ProfilePage() {
                         ...profile,
                         address: { ...profile.address, country: e.target.value }
                       })}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      disabled={isSaving}
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     />
                   </div>
                 </div>
@@ -258,7 +285,8 @@ export default function ProfilePage() {
                   rows={4}
                   value={profile.bio}
                   onChange={(e) => setProfile({ ...profile, bio: e.target.value })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                  disabled={isSaving}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 />
               </div>
 
@@ -274,7 +302,8 @@ export default function ProfilePage() {
                         ...profile,
                         preferences: { ...profile.preferences, newsletter: e.target.checked }
                       })}
-                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      disabled={isSaving}
+                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     />
                     <label htmlFor="newsletter" className="ml-2 block text-sm text-gray-700">
                       Subscribe to newsletter
@@ -290,7 +319,8 @@ export default function ProfilePage() {
                         ...profile,
                         preferences: { ...profile.preferences, notifications: e.target.checked }
                       })}
-                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      disabled={isSaving}
+                      className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     />
                     <label htmlFor="notifications" className="ml-2 block text-sm text-gray-700">
                       Enable notifications
@@ -312,11 +342,19 @@ export default function ProfilePage() {
                 </div>
               )}
 
-              <div className="flex justify-end">
+              <div className="flex justify-end space-x-4">
+                <button
+                  type="button"
+                  onClick={handleClear}
+                  disabled={isSaving}
+                  className="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Clear Fields
+                </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>
